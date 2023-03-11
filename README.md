@@ -1,2 +1,2 @@
 # Bread
-A test ground for a javascript runtime with rust and v8
+An experimental js runtime in rust(WIP)
