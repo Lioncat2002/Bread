@@ -11,28 +11,19 @@ fn main() {
     let context = v8::Context::new(scope);
     let scope = &mut v8::ContextScope::new(scope, context);
 
-    if gtk::init().is_err() {
-        println!("Failed to initialize GTK.");
-        return;
-    }
-
-    //Alert function
-    let alert_fn = v8::Function::new(scope, console::alert).unwrap().into();
-    let alert_name = v8::String::new(scope, "alert").unwrap().into();
-
     //Cosnole.log function
-    let log_fn = v8::Function::new(scope, console::log).unwrap().into();
+    let log_fn = v8::Function::new(scope, console::Console::log)
+        .unwrap()
+        .into();
     let log_name = v8::String::new(scope, "log").unwrap().into();
     //Global javascript object
-
     let global = context.global(scope);
-    let console=context.global(scope);
+    //global console object
+    let console = context.global(scope);
     let console_name = v8::String::new(scope, "console").unwrap().into();
-    
-    //Set my function to global javascript object
-    console.set(scope, alert_name, alert_fn);
+    //add log function to console
     console.set(scope, log_name, log_fn);
-
+    //add console object to the global js object
     global.set(scope, console_name, console.into());
 
     let src = fs::read_to_string("tests/test.js").unwrap();
