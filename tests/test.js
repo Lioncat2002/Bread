@@ -1,5 +1,4 @@
-array = [1, 2, 3, 4];
-for (let index = 0; index < array.length; index++) {
-  const element = array[index];
-  console.log(element);
-}
+console.log("meow", "meow");
+console.info("pussen", "mussed");
+console.debug("pussen", "piuus");
+console.error("toiger", "bruh", 1, 2);
