@@ -1,4 +1,5 @@
 mod console;
+mod global;
 use std::fs;
 
 fn main() {
@@ -44,6 +45,10 @@ fn main() {
     console.set(scope, info_name, info_fn);
     //add console object to the global js object
     global.set(scope, console_name, console.into());
+
+    let fetch_name = v8::String::new(scope, "fetch").unwrap().into();
+    let fetch_fn = v8::Function::new(scope, global::fetch).unwrap().into();
+    global.set(scope, fetch_name, fetch_fn);
 
     let src = fs::read_to_string("tests/test.js").unwrap();
 
